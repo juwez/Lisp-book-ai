@@ -3,3 +3,4 @@
 (in-package :lisp)
 
 (format t "hello world~%")
+(ql:quickload :hunchentoot)
