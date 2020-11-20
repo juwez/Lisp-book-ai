@@ -1,7 +1,9 @@
 (defpackage lisp
   (:use :cl))
 (in-package :lisp)
-
-(format t "hello world~%")
 (ql:quickload :hunchentoot)
-(hunchentoot:start (make-instance 'hunchentoot:acceptor :port 4242))
+(ql:quickload :hunchentoot-no-ssl)
+(hunchentoot:start (make-instance 'hunchentoot:easy-acceptor :port 4242))
+(hunchentoot:define-easy-handler (say-hello:uri "/hi")(name)
+  (setf (hunchentoot:content-type*) "text/plain")
+  (format nil "hey-@[ ~A~]" name))
