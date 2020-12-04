@@ -1,12 +1,12 @@
 (defsystem "lisp"
-  :version "0.1.0"
-  :author ""
+  :version "0.1.1"
+  :author "Joey Lybaert<joeylybaert@outlook.com>"
   :license ""
-  :depends-on ()
+  :depends-on (:drakma)
   :components ((:module "src"
                 :components
                 ((:file "main"))))
-  :description ""
+  :description "lisp api for trending topics"
   :in-order-to ((test-op (test-op "lisp/tests"))))
 
 (defsystem "lisp/tests"
