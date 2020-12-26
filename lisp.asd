@@ -1,7 +1,8 @@
 (defsystem "lisp"
   :version "0.1.1"
   :author "Joey Lybaert<joeylybaert@outlook.com>"
-  :license ""
+  :license "BSD-3-Clause"
+;looks locally , quicklisp has to download them
   :depends-on (:drakma)
   :components ((:module "src"
                 :components
