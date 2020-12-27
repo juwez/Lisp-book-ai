@@ -3,8 +3,11 @@
   :author "Joey Lybaert<joeylybaert@outlook.com>"
   :license "BSD-3-Clause"
 ;looks locally , quicklisp has to download them
-  :depends-on (:zeromq
-               :drakma)
+  :depends-on (:hunchentoot
+               :zeromq
+               :drakma
+               :cl-ppcre
+               )
   :components ((:module "src"
                 :components
                 ((:file "main"))))
