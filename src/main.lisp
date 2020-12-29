@@ -17,8 +17,8 @@
     (pzmq:with-socket responder :rep
       (pzmq:bind responder listen-address)
       (loop
-        (pzmq:send responder (json:encode-json-to-string(make-instance 'book :title "The Witcher - Het Seizoen van Stormen" :author "Andrzej Sapkowski" :publisher "Luitingh Sijthoff Fantasy" :category "Fiction" :saleability "FOR_SALE" :isebook T ))))))
-  )
+        (write-line (pzmq:recv-string responder))
+        (pzmq:send responder (json:encode-json-to-string(make-instance 'book :title "The Witcher - Het Seizoen van Stormen" :author "Andrzej Sapkowski" :publisher "Luitingh Sijthoff Fantasy" :category "Fiction" :saleability "FOR_SALE" :isebook T )))))))
                                         ;(defun getbook()
 ;(drakma:http-request"https://www.googleapis.com/demo/v1")
                                         ;  (let ((apikey "AIzaSyD7trNqJ10hpu5nT"

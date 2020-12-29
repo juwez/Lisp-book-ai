@@ -3,8 +3,7 @@
   :author "Joey Lybaert<joeylybaert@outlook.com>"
   :license "BSD-3-Clause"
 ;looks locally , quicklisp has to download them
-  :depends-on (:hunchentoot
-               :zeromq
+  :depends-on (:zeromq
                :drakma
                :cl-ppcre
                :cl-json
@@ -13,8 +12,8 @@
   :components ((:module "src"
                 :components
                 ((:file "main"))))
-  :build-operation "program-op" ;; leave as is
-  :build-pathname "../lispServerBin"
+  :build-operation "asdf:program-op" ;; leave as is
+  :build-pathname "../lispscripts/lispServerBin"
   :entry-point "lisp:main"
   :description "lisp api for trending topics"
   :in-order-to ((test-op (test-op "lisp/tests"))))
