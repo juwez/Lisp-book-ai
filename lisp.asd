@@ -3,7 +3,7 @@
   :author "Joey Lybaert<joeylybaert@outlook.com>"
   :license "BSD-3-Clause"
 ;looks locally , quicklisp has to download them
-  :depends-on (:zeromq
+  :depends-on (:asdf
                :drakma
                :cl-ppcre
                :cl-json

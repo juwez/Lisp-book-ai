@@ -12,14 +12,16 @@
    (category :initarg :category :accessor category)
    (saleability :initarg :saleability :accessor saleability :documentation "this is an indicator as to wether the book is free or not")
    (isebook :initarg :isebook :accessor isebook))) 
-(defun main (&optional (listen-address "tcp://127.0.0.1:4242"))
-  (pzmq:with-context nil 
+(defun main (&optional (listen-address "tcp://*:4242"))
+  (write-line "lisp server listening on port 4242")
+  (pzmq:with-context nil
     (pzmq:with-socket responder :rep
       (pzmq:bind responder listen-address)
       (loop
-        (write-line (pzmq:recv-string responder))
-        (pzmq:send responder (json:encode-json-to-string(make-instance 'book :title "The Witcher - Het Seizoen van Stormen" :author "Andrzej Sapkowski" :publisher "Luitingh Sijthoff Fantasy" :category "Fiction" :saleability "FOR_SALE" :isebook T )))))))
+        (pzmq:recv-string responder)
+        (pzmq:send responder (json:encode-json-to-string(make-instance 'book :title "The Witcher - Het Seizoen van Stormen" :author "Andrzej Sapkowski" :publisher "Luitingh Sijthoff Fantasy" :category "Fiction" :saleability "FOR_SALE" :isebook T)))))))
                                         ;(defun getbook()
+                                        ;
 ;(drakma:http-request"https://www.googleapis.com/demo/v1")
                                         ;  (let ((apikey "AIzaSyD7trNqJ10hpu5nT"
 ;  (cl-ppcre:scan-to-strings 
