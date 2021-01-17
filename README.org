@@ -1,5 +1,0 @@
-* Lisp 
-
-** Usage
-
-** Installation

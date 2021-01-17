@@ -7,6 +7,7 @@
                :drakma
                :cl-ppcre
                :cl-json
+               :yason
                "pzmq"
                )
   :components ((:module "src"
