@@ -15,7 +15,7 @@
    (isbn :initarg :isbn  :accessor isebook)
    (coverurl :initarg :coverurl :accessor isebook)
    )
-  )
+)
 
 (defun frequency-bags (elements &key (test #'equal))
   (let ((frequencies (make-hash-table :test test))
@@ -24,11 +24,19 @@
     (maphash (lambda (k v) (push k (gethash v bags))) frequencies)
     (values bags)))
 (defun getbook()
-(let ((apikey "AIzaSyD7trNqJ10hpu5nT"
-  (cl-ppcre:scan-to-strings 
-                          (drakma:http-request "https://www.googleapis.com/books/v1/volumes?q=The+Last+Wish&maxResults=1&key="apikey)
+  (let ((stream  (drakma:http-request "https://www.googleapis.com/books/v1/volumes?q=The+Last+Wish&maxResults=1&key=AIzaSyD7trNqJ10hpu5nT61J6QblwigNryd0fp4"
+                                                        :want-stream t)))
+    (setf (flexi-streams:flexi-stream-external-format stream) :utf-8)
+    (let((resultbook(cl-json:decode-json-from-source stream )))
+      (format t "~a~%" (rest (assoc :kind resultbook)
+                             )
+              )
+      ;here the filtering would take place
+      )
+    )
+  )
+   
 
-  )))))
 (defun main (&optional (listen-address "tcp://*:4242"))
   (write-line "lisp server listening on port 4242")
   (pzmq:with-context nil
@@ -63,6 +71,7 @@
              (print (first(first isebook)))
              (print (first(first publisher)))
              (print (first(first saleability)))
+             ;these should be passed to get book and based on that 
           )))))))))))
         
-        (pzmq:send responder (json:encode-json-to-string(make-instance 'book :title "The Witcher - Het Seizoen van Stormen" :author "Andrzej Sapkowski" :publisher "Luitingh Sijthoff Fantasy" :category "Fiction" :saleability "FOR_SALE" :isebook T :isbn "9781473232488" :coverurl "http://books.google.com/books/content?id=H2RIDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api")))))))
+        (pzmq:send responder (json:encode-json-to-string(make-instance 'book :title "The Witcher - Het Seizoen van Stormen" :author "Andrzej Sapkowski" :publisher "Luitingh Sijthoff Fantasy" :category "Fiction" :saleability "FOR_SALE" :isebook T :isbn "9781473232488" :coverurl "http://books.google.com/books/content?id=H2RIDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api" )))))))
