@@ -22,13 +22,13 @@
         (bags (make-hash-table :test #'eql)))
     (dolist (e elements) (incf (gethash e frequencies 0)))
     (maphash (lambda (k v) (push k (gethash v bags))) frequencies)
-    (values bags frequencies)))
+    (values bags)))
 (defun getbook()
 (let ((apikey "AIzaSyD7trNqJ10hpu5nT"
   (cl-ppcre:scan-to-strings 
-                          (drakma:http-request "https://www.googleapis.com/books/v1/volumes?q=The+Last+Wish&maxResults=1&key=AIzaSyD7trNqJ10hpu5nT61J6QblwigNryd0fp4"
+                          (drakma:http-request "https://www.googleapis.com/books/v1/volumes?q=The+Last+Wish&maxResults=1&key="apikey)
 
-  ))))))
+  )))))
 (defun main (&optional (listen-address "tcp://*:4242"))
   (write-line "lisp server listening on port 4242")
   (pzmq:with-context nil
@@ -47,20 +47,22 @@
           (let ((saleabilitylist(loop for hashnumber in joske
                                       collect(gethash "saleability" hashnumber))))
             
-            (print(frequency-bags  authorlist))
             (let ((author (loop for v being each hash-value of (frequency-bags authorlist)
                             collect v)))
-            (let ((category (loop for v being each hash-value of (frequency-bags authorlist)
+            (let ((category (loop for v being each hash-value of (frequency-bags categorylist)
                             collect v)))
-           (let ((isebook (loop for v being each hash-value of (frequency-bags authorlist)
+           (let ((isebook (loop for v being each hash-value of (frequency-bags isebooklist)
                             collect v)))
-           (let ((publisher (loop for v being each hash-value of (frequency-bags authorlist)
+           (let ((publisher (loop for v being each hash-value of (frequency-bags publisherlist)
                             collect v)))
-           (let ((saleability (loop for v being each hash-value of (frequency-bags authorlist)
+           (let ((saleability (loop for v being each hash-value of (frequency-bags saleabilitylist)
                                     collect v)))
-
-
              
+             (print (first(first author)))
+             (print (first(first category)))
+             (print (first(first isebook)))
+             (print (first(first publisher)))
+             (print (first(first saleability)))
           )))))))))))
         
         (pzmq:send responder (json:encode-json-to-string(make-instance 'book :title "The Witcher - Het Seizoen van Stormen" :author "Andrzej Sapkowski" :publisher "Luitingh Sijthoff Fantasy" :category "Fiction" :saleability "FOR_SALE" :isebook T :isbn "9781473232488" :coverurl "http://books.google.com/books/content?id=H2RIDgAAQBAJ&printsec=frontcover&img=1&zoom=1&edge=curl&source=gbs_api")))))))
