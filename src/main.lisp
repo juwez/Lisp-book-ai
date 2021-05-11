@@ -24,7 +24,7 @@
     (maphash (lambda (k v) (push k (gethash v bags))) frequencies)
     (values bags)))
 (defun getbook()
-  (let ((stream  (drakma:http-request "https://www.googleapis.com/books/v1/volumes?q=The+Last+Wish&maxResults=1&key=AIzaSyD7trNqJ10hpu5nT61J6QblwigNryd0fp4"
+  (let ((stream  (drakma:http-request "https://www.googleapis.com/books/v1/volumes?q=The+Last+Wish&maxResults=1&key="secret"
                                                         :want-stream t)))
     (setf (flexi-streams:flexi-stream-external-format stream) :utf-8)
     (let((resultbook(cl-json:decode-json-from-source stream )))

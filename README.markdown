@@ -14,19 +14,5 @@
 <p>Alles werkt met de sly repl </p>
 
 <h1>Deployement</h1>
-<p>Aangezien wij werken op een debian server en ik niet op een debian platform werk, gebruik ik docker om te compileren met het commando <b> sbcl --eval "(asdf:operate :build-op :lisp)"</b></p>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<p>Aangezien dit draait op een debian server en ik niet op een debian platform werk, gebruik ik docker om te compileren met het commando <b> sbcl --eval "(asdf:operate :build-op :lisp)"</b></p>
 
